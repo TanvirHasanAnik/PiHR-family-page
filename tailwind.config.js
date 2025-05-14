@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sfpro: ['SF Pro', 'sans-serif'],
+      },
       colors: {
         dropDownTextGray: '#667085',
         hoverBG: '#f9fafb'

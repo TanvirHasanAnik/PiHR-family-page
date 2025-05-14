@@ -16,7 +16,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-medium text-xs lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Attendance</span>
                       <ExpandIcon/>
                     </p>

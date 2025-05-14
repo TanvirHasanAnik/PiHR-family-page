@@ -3,13 +3,22 @@ import NavBar from './navbar';
 import { BreadCrumbSeparator,HelpIcon,BookmarkIcon,FavoriteIcon } from './icons';
 import {
   VKBreadCrumbs,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  VKButton,
-  VKGroup,
+  VKInput,
+  VKSelect,
 } from "@vivakits/react-components";
+
+const relationshipOptions = [
+  { label: 'Father', value: '0' },
+  { label: 'Mother', value: '1' },
+  { label: 'Brother', value: '2' },
+  { label: 'Sister', value: '3' },
+]
+
+const genderOptions = [
+  { label: 'Male', value: '0' },
+  { label: 'Female', value: '1' },
+  { label: 'Others', value: '2' }
+]
 
 const breadcrumbOptions = [
 		{
@@ -53,9 +62,9 @@ function App() {
           </div>
         </div>
         <div className='flex p-5 mx-5 mb-24 -mt-10 bg-white gap-2 rounded-xl'>
-          <section>
-            <div className='flex flex-col pr-8 border-r'>
-                <a href="" className='px-3 py-2 text-left rounded-md text-sm leading-5 font-semibold text-[rgb(52,64,84)]'>Employee Info</a>
+          <section className='min-w-[180px] pr-8 border-r'>
+            <div className='flex flex-col'>
+                <a href="" className='px-3 py-2 text-left rounded-md text-sm leading-5 font-semibold text-[rgb(52,64,84)] whitespace-nowrap'>Employee Info</a>
                 <a href="" className='px-3 py-2 text-left rounded-md text-sm leading-5 font-semibold text-[rgb(52,64,84)]'>Status</a>
                 <a href="" className='bg-[rgb(116,97,244)] px-3 py-2 text-left rounded-md text-sm leading-5 font-semibold text-white'>Family</a>
                 <a href="" className='px-3 py-2 text-left rounded-md text-sm leading-5 font-semibold text-[rgb(52,64,84)]'>Education</a>
@@ -69,7 +78,66 @@ function App() {
                 <a href="" className='px-3 py-2 text-left rounded-md text-sm leading-5 font-semibold text-[rgb(52,64,84)]'>Bank Account</a>
             </div>
           </section>
-          <section></section>
+          <section className='w-full pb-5 pl-7'>
+            <form>
+              <div className='family-form-wrapper w-full flex flex-col gap-4 p-5 rounded-xl bg-gray-50'>
+                <div className='flex flex-col gap-1'>
+                  <div className='input_wrapper grid grid-cols-2 gap-4'>
+                    
+                  <VKInput size="md" label="Name" labelClassName="text-xs font-semibold" isRequired={true} placeholder="Enter Name" type='text' id='name' rounded="md"/>
+
+                  <VKSelect
+                    options={relationshipOptions}
+                    onChange={() => {}}
+                    value={{ label: 'Father', value: '0' }}
+                    label="Relationship"
+                    labelClassName="text-xs font-semibold"
+                    isRequired={true}
+                    placeholder="Select Relationship"
+                    rounded="md"
+                    size='md'
+                  />
+
+                  <VKSelect
+                    options={genderOptions}
+                    onChange={() => {}}
+                    value={{ label: 'Male', value: '0'}}
+                    label="Gender"
+                    labelClassName="text-xs font-semibold"
+                    isRequired={true}
+                    placeholder="Select Gender"
+                    rounded="md"
+                    size='md'
+                  />
+                    
+                  <VKInput size="md" label="NID/SSN" labelClassName="text-xs font-semibold" placeholder="Enter NID/SSN" type='number' id='nid-ssn'  rounded="md"/>
+                    
+                  <VKInput size="md" label="Profession" labelClassName="text-xs font-semibold" placeholder="Enter Profession" type='text' id='profession'  rounded="md"/>
+                    
+                  <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md"/>
+                  
+                  {/* <Controller
+                    name="gender"
+                    control={addControl}
+                    render={({ field }) => (
+                      <VKSelect
+                        label="Gender"
+                        placeholder="Select Gender"
+                        rounded="sm"
+                        hasError={addErrors.gender !== undefined} 
+                        errorMessage={addErrors?.gender?.message}
+                        options={genderOptions}
+                        value={field.value}
+                        onChange={field.onChange}
+                      /> */}
+                  </div>
+                  <div className='check_wrapper'></div>
+                </div>
+                <div className='submit_button_wrapper'></div>
+              </div>
+            </form>
+            <div className='family-table-wrapper'>Table</div>
+          </section>
         </div>
       </div>
     </div>

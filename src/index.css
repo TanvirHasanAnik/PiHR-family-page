@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @font-face {
+  font-family: 'SF Pro';
+  src: url('/src/assets/fonts/SF-Pro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
 @layer base {
   :root {
     --background: #fff;
