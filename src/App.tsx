@@ -34,7 +34,7 @@ const breadcrumbOptions = [
 function App() {
   
   return (
-    <div>
+    <div className='font-sfpro'>
       <NavBar/>
       <div className='min-h-[calc(100vh-72px)] pb-1 bg-gray-100'>
         <div className='title'>
@@ -115,21 +115,6 @@ function App() {
                   <VKInput size="md" label="Profession" labelClassName="text-xs font-semibold" placeholder="Enter Profession" type='text' id='profession'  rounded="md"/>
                     
                   <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md"/>
-                  
-                  {/* <Controller
-                    name="gender"
-                    control={addControl}
-                    render={({ field }) => (
-                      <VKSelect
-                        label="Gender"
-                        placeholder="Select Gender"
-                        rounded="sm"
-                        hasError={addErrors.gender !== undefined} 
-                        errorMessage={addErrors?.gender?.message}
-                        options={genderOptions}
-                        value={field.value}
-                        onChange={field.onChange}
-                      /> */}
                   </div>
                   <div className='check_wrapper'></div>
                 </div>
