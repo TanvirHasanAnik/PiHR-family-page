@@ -3,6 +3,7 @@ import {
   VKBreadCrumbs,
   VKButton,
   VKCheckbox,
+  VKDatepicker,
   VKInput,
   VKSelect
 } from "@vivakits/react-components";
@@ -31,9 +32,10 @@ const familyFormSchema = z.object({
       { message: "Gender is required" }
     ),
   nid: z.string().max(50, "Nid should be less than 50 characters").optional(),
-  dob: z.string().optional(),
+  dob: z.date().optional(),
   profession: z.string().max(50, "Nid should be less than 50 characters").optional(),
   contact: z.string().min(4,"Should be between 4 and 13 digits").max(13,"Should be between 4 and 13 digits"),
+  isEmergencyContact: z.boolean().optional(),
 })
 
 type familyFormValues = z.infer<typeof familyFormSchema>;
@@ -65,7 +67,7 @@ const breadcrumbOptions = [
 function App() {
   const [familyList, setFamilyList] = useState<familyFormValues []>([]);
 
-  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema)});
+  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema),mode: 'onSubmit'});
   const {register, control, handleSubmit, formState: { errors }} = form;
 
   
@@ -143,8 +145,8 @@ function App() {
                         placeholder="Select Relationship"
                         rounded="md"
                         size='md'
-                        hasError={errors.gender !== undefined} 
-                        errorMessage={errors?.gender?.message}
+                        hasError={errors.relationship !== undefined} 
+                        errorMessage={errors?.relationship?.message}
                         options={relationshipOptions}
                         value={field.value}
                         onChange={field.onChange}
@@ -173,17 +175,42 @@ function App() {
                   />
                     
                   <VKInput size="md" label="NID/SSN" labelClassName="text-xs font-semibold" placeholder="Enter NID/SSN" type='text' id='nid-ssn'  rounded="md" errorMessage={errors?.nid?.message} {...register("nid")}/>
-                    
+                  
+                  <Controller
+                    name="dob"
+                    control={control}
+                    render={({ field }) => (
+                      <div className="flex flex-col">
+                        <label htmlFor="dob" className="text-xs font-semibold mb-1 pb-1">
+                          Date of Birth
+                        </label>
+                        <VKDatepicker
+                          className="border-gray-200"
+                          id="dob"
+                          value={field.value}
+                          format="DD-MM-YYYY"
+                          onChange={(event) => {
+                            field.onChange(event.date);
+                          }}
+                        />
+                        {errors?.dob && (
+                          <span className="text-xs text-red-500 mt-1">
+                            {errors.dob.message}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  />
                   <VKInput size="md" label="Profession" labelClassName="text-xs font-semibold" placeholder="Enter Profession" type='text' id='profession'  rounded="md" errorMessage={errors?.profession?.message} {...register("profession")}/>
                     
                   <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md" errorMessage={errors?.contact?.message} {...register("contact")}/>
                   </div>
                   <div className='check_wrapper pt-5'>
-                    <VKCheckbox rounded="md">Emergency Contact</VKCheckbox>
+                    <VKCheckbox rounded="md" {...register("isEmergencyContact")}>Emergency Contact</VKCheckbox>
                   </div>
                 </div>
                 <div className='submit_button_wrapper'>
-                  <VKButton size="md" rounded="md" className='px-10'>
+                  <VKButton type='submit' size="md" rounded="md" className='px-10'>
                     Save info
                   </VKButton>
                 </div>
