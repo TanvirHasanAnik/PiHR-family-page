@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import './App.css';
-import { BookmarkIcon, BreadCrumbSeparator, DeleteIcon, EditIcon, FavoriteIcon, HelpIcon } from './icons';
+import { BookmarkIcon, BreadCrumbSeparator, DeleteIcon, EditIcon, FavoriteIcon, HelpIcon, NoDataFoundImage } from './icons';
 import NavBar from './navbar';
 
 const familyFormSchema = z.object({
@@ -242,7 +242,7 @@ function App() {
                   </tr>
                 </thead>
                 <tbody>
-                  {familyList.map((family: familyFormValues)=>{
+                  {familyList.length > 0 ? familyList.map((family: familyFormValues)=>{
                     return <>
                     <tr key={family.id} className="border-b border-gray-200">
                       <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-900 break-all">{family.name}</td>
@@ -267,7 +267,17 @@ function App() {
                       </td>
                     </tr>
                     </>
-                  })}
+                  }) : 
+
+                  <tr>
+                    <td colSpan={5} className="py-5 text-center">
+                      <div className="flex flex-col items-center gap-2">
+                        <NoDataFoundImage />
+                        <span className="font-semibold text-gray-400">No Data Found</span>
+                      </div>
+                    </td>
+                  </tr>
+                  }
                 </tbody>
               </table> 
             </div>
