@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import './App.css';
-import { BookmarkIcon, BreadCrumbSeparator, DeleteIcon, EditIcon, FavoriteIcon, HelpIcon, NoDataFoundImage } from './icons';
+import { BookmarkIcon, BreadCrumbSeparator, CalendarIcon, DeleteIcon, EditIcon, ExpandIcon, FavoriteIcon, HelpIcon, NoDataFoundImage } from './icons';
 import NavBar from './navbar';
 
 const familyFormSchema = z.object({
@@ -158,6 +158,9 @@ function App() {
                         placeholder="Select Relationship"
                         rounded="md"
                         size='md'
+                        className="bg-white"
+                        isSearchable={true}
+                        dropdownIndicator=<ExpandIcon/>
                         hasError={errors.relationship !== undefined} 
                         errorMessage={errors?.relationship?.message}
                         options={relationshipOptions}
@@ -178,6 +181,9 @@ function App() {
                         placeholder="Select Gender"
                         rounded="md"
                         size='md'
+                        isSearchable={true}
+                        className="bg-white"
+                        dropdownIndicator=<ExpandIcon/>
                         hasError={errors.gender !== undefined} 
                         errorMessage={errors?.gender?.message}
                         options={genderOptions}
@@ -203,7 +209,7 @@ function App() {
                           placeholder='Select Date'
                           value={field.value}
                           format="DD-MM-YYYY"
-                          icon=<EditIcon/>
+                          icon=<CalendarIcon/>
                           iconPosition="end"
                           onChange={(event) => {
                             field.onChange(event.date);
@@ -222,7 +228,7 @@ function App() {
                   <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md" hasError={errors.contact !== undefined} errorMessage={errors?.contact?.message} {...register("contact")}/>
                   </div>
                   <div className='check_wrapper pt-5'>
-                    <VKCheckbox rounded="md" {...register("isEmergencyContact")}>Emergency Contact</VKCheckbox>
+                    <VKCheckbox className='border-blue-300' size='sm' rounded="sm" color={'primary'} {...register("isEmergencyContact")}><span className='text-dropDownTextGray text-xs font-medium'>Emergency Contact</span></VKCheckbox>
                   </div>
                 </div>
                 <div className='submit_button_wrapper'>
