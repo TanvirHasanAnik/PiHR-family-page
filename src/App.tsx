@@ -67,7 +67,7 @@ const breadcrumbOptions = [
 function App() {
   const [familyList, setFamilyList] = useState<familyFormValues []>([]);
 
-  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema),mode: 'onSubmit'});
+  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema)});
   const {register, control, handleSubmit, formState: { errors }} = form;
 
   
