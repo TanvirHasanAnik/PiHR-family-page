@@ -32,9 +32,9 @@ const familyFormSchema = z.object({
       { message: "Gender is required" }
     ),
   nid: z.string().max(50, "Nid should be less than 50 characters").optional(),
-  dob: z.date().optional(),
+  dob: z.date().nullable().optional(),
   profession: z.string().max(50, "Nid should be less than 50 characters").optional(),
-  contact: z.string().min(4,"Should be between 4 and 13 digits").max(13,"Should be between 4 and 13 digits"),
+  contact: z.string().min(4,"Should be between 4 and 13 digits").max(13,"Should be between 4 and 13 digits").nullable().optional(),
   isEmergencyContact: z.boolean().optional(),
 })
 
@@ -67,7 +67,7 @@ const breadcrumbOptions = [
 function App() {
   const [familyList, setFamilyList] = useState<familyFormValues []>([]);
 
-  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema),mode: 'onSubmit'});
+  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema),mode: 'onChange'});
   const {register, control, handleSubmit, formState: { errors }} = form;
 
   
@@ -79,6 +79,7 @@ function App() {
       console.log("error",error)
     }
   }
+    console.log(errors);
   
   return (
     <div className='font-sfpro'>
@@ -131,8 +132,7 @@ function App() {
                 <div className='flex flex-col gap-1'>
                   <div className='input_wrapper grid grid-cols-2 gap-4'>
                     
-                  <VKInput size="md" label="Name" labelClassName="text-xs font-semibold" isRequired={true} placeholder="Enter Name" type='text' id='name' rounded="md" errorMessage={errors?.name?.message} {...register("name")}/>
-
+                  <VKInput size="md" label="Name" labelClassName="text-xs font-semibold" isRequired={true} placeholder="Enter Name" type='text' id='name' rounded="md" hasError={errors.name !== undefined} errorMessage={errors?.name?.message} {...register("name")}/>
                   
                   <Controller
                     name="relationship"
@@ -174,7 +174,7 @@ function App() {
                     )}
                   />
                     
-                  <VKInput size="md" label="NID/SSN" labelClassName="text-xs font-semibold" placeholder="Enter NID/SSN" type='text' id='nid-ssn'  rounded="md" errorMessage={errors?.nid?.message} {...register("nid")}/>
+                  <VKInput size="md" label="NID/SSN" labelClassName="text-xs font-semibold" placeholder="Enter NID/SSN" type='text' id='nid-ssn'  rounded="md" hasError={errors.nid !== undefined} errorMessage={errors?.nid?.message} {...register("nid")}/>
                   
                   <Controller
                     name="dob"
@@ -201,9 +201,9 @@ function App() {
                       </div>
                     )}
                   />
-                  <VKInput size="md" label="Profession" labelClassName="text-xs font-semibold" placeholder="Enter Profession" type='text' id='profession'  rounded="md" errorMessage={errors?.profession?.message} {...register("profession")}/>
+                  <VKInput size="md" label="Profession" labelClassName="text-xs font-semibold" placeholder="Enter Profession" type='text' id='profession'  rounded="md" hasError={errors.profession !== undefined} errorMessage={errors?.profession?.message} {...register("profession")}/>
                     
-                  <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md" errorMessage={errors?.contact?.message} {...register("contact")}/>
+                  <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md" hasError={errors.contact !== undefined} errorMessage={errors?.contact?.message} {...register("contact")}/>
                   </div>
                   <div className='check_wrapper pt-5'>
                     <VKCheckbox rounded="md" {...register("isEmergencyContact")}>Emergency Contact</VKCheckbox>
