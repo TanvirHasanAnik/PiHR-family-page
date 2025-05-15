@@ -1,11 +1,42 @@
-import './App.css'
-import NavBar from './navbar';
-import { BreadCrumbSeparator,HelpIcon,BookmarkIcon,FavoriteIcon } from './icons';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   VKBreadCrumbs,
+  VKButton,
+  VKCheckbox,
   VKInput,
-  VKSelect,
+  VKSelect
 } from "@vivakits/react-components";
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import './App.css';
+import { BookmarkIcon, BreadCrumbSeparator, FavoriteIcon, HelpIcon } from './icons';
+import NavBar from './navbar';
+
+const familyFormSchema = z.object({
+  id:z.number().optional(),
+  name: z.string().nonempty("name is required").max(50, "Name should be less than 50 characters"),
+  relationship: z.object({
+    value:z.string().nullable(),
+    label:z.string().nullable()
+  }).refine(
+      (val) => val.value && val.label,
+      { message: "Relationship is required" }
+    ),
+  gender: z.object({
+    value:z.string().nullable(),
+    label:z.string().nullable()
+  }).refine(
+      (val) => val.value && val.label,
+      { message: "Gender is required" }
+    ),
+  nid: z.string().max(50, "Nid should be less than 50 characters").optional(),
+  dob: z.string().optional(),
+  profession: z.string().max(50, "Nid should be less than 50 characters").optional(),
+  contact: z.string().min(4,"Should be between 4 and 13 digits").max(13,"Should be between 4 and 13 digits"),
+})
+
+type familyFormValues = z.infer<typeof familyFormSchema>;
 
 const relationshipOptions = [
   { label: 'Father', value: '0' },
@@ -32,6 +63,20 @@ const breadcrumbOptions = [
 	];
 
 function App() {
+  const [familyList, setFamilyList] = useState<familyFormValues []>([]);
+
+  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema)});
+  const {register, control, handleSubmit, formState: { errors }} = form;
+
+  
+  const onSubmit = function (data: familyFormValues){
+    console.log("form submitted",data);
+    try{
+      console.log(familyFormSchema.parse(data))
+    }catch (error){
+      console.log("error",error)
+    }
+  }
   
   return (
     <div className='font-sfpro'>
@@ -79,46 +124,69 @@ function App() {
             </div>
           </section>
           <section className='w-full pb-5 pl-7'>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className='family-form-wrapper w-full flex flex-col gap-4 p-5 rounded-xl bg-gray-50'>
                 <div className='flex flex-col gap-1'>
                   <div className='input_wrapper grid grid-cols-2 gap-4'>
                     
-                  <VKInput size="md" label="Name" labelClassName="text-xs font-semibold" isRequired={true} placeholder="Enter Name" type='text' id='name' rounded="md"/>
+                  <VKInput size="md" label="Name" labelClassName="text-xs font-semibold" isRequired={true} placeholder="Enter Name" type='text' id='name' rounded="md" errorMessage={errors?.name?.message} {...register("name")}/>
 
-                  <VKSelect
-                    options={relationshipOptions}
-                    onChange={() => {}}
-                    value={{ label: 'Father', value: '0' }}
-                    label="Relationship"
-                    labelClassName="text-xs font-semibold"
-                    isRequired={true}
-                    placeholder="Select Relationship"
-                    rounded="md"
-                    size='md'
+                  
+                  <Controller
+                    name="relationship"
+                    control={control}
+                    render={({ field }) => (
+                      <VKSelect
+                        label="Relationship"
+                        labelClassName="text-xs font-semibold"
+                        isRequired={true}
+                        placeholder="Select Relationship"
+                        rounded="md"
+                        size='md'
+                        hasError={errors.gender !== undefined} 
+                        errorMessage={errors?.gender?.message}
+                        options={relationshipOptions}
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    )}
                   />
-
-                  <VKSelect
-                    options={genderOptions}
-                    onChange={() => {}}
-                    value={{ label: 'Male', value: '0'}}
-                    label="Gender"
-                    labelClassName="text-xs font-semibold"
-                    isRequired={true}
-                    placeholder="Select Gender"
-                    rounded="md"
-                    size='md'
+                  
+                  <Controller
+                    name="gender"
+                    control={control}
+                    render={({ field }) => (
+                      <VKSelect
+                        label="Gender"
+                        labelClassName="text-xs font-semibold"
+                        isRequired={true}
+                        placeholder="Select Gender"
+                        rounded="md"
+                        size='md'
+                        hasError={errors.gender !== undefined} 
+                        errorMessage={errors?.gender?.message}
+                        options={genderOptions}
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    )}
                   />
                     
-                  <VKInput size="md" label="NID/SSN" labelClassName="text-xs font-semibold" placeholder="Enter NID/SSN" type='number' id='nid-ssn'  rounded="md"/>
+                  <VKInput size="md" label="NID/SSN" labelClassName="text-xs font-semibold" placeholder="Enter NID/SSN" type='text' id='nid-ssn'  rounded="md" errorMessage={errors?.nid?.message} {...register("nid")}/>
                     
-                  <VKInput size="md" label="Profession" labelClassName="text-xs font-semibold" placeholder="Enter Profession" type='text' id='profession'  rounded="md"/>
+                  <VKInput size="md" label="Profession" labelClassName="text-xs font-semibold" placeholder="Enter Profession" type='text' id='profession'  rounded="md" errorMessage={errors?.profession?.message} {...register("profession")}/>
                     
-                  <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md"/>
+                  <VKInput size="md" label="Contact No" labelClassName="text-xs font-semibold" placeholder="Enter Contact" type='number' id='contact'  rounded="md" errorMessage={errors?.contact?.message} {...register("contact")}/>
                   </div>
-                  <div className='check_wrapper'></div>
+                  <div className='check_wrapper pt-5'>
+                    <VKCheckbox rounded="md">Emergency Contact</VKCheckbox>
+                  </div>
                 </div>
-                <div className='submit_button_wrapper'></div>
+                <div className='submit_button_wrapper'>
+                  <VKButton size="md" rounded="md" className='px-10'>
+                    Save info
+                  </VKButton>
+                </div>
               </div>
             </form>
             <div className='family-table-wrapper'>Table</div>
