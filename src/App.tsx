@@ -107,8 +107,7 @@ function App() {
                 underline={false}
                 options={breadcrumbOptions} 
                 style={{
-                  item: "inline-flex items-center",
-                  link: "py-1 text-white text-xs font-medium leading-none leading-[18px]",
+                  link: "px-0 py-1 text-white text-xs font-medium leading-none leading-[18px]",
                 }}
                 />
               </div>
@@ -116,7 +115,7 @@ function App() {
                 <h3 className='mt-0 text-xl font-bold text-white'>Leo_14 Chandra Messi_14 (000123454)</h3>
               </div>
             </div>
-            <div className='flex py-[10px] gap-5'>
+            <div className='flex py-4 gap-5'>
               <div className='flex justify-center items-center rounded-md bg-gray-50 bg-opacity-10 h-9 w-9 cursor-pointer'><HelpIcon/></div>
               <div className='flex justify-center items-center rounded-md bg-gray-50 bg-opacity-10 h-9 w-9 cursor-pointer'><BookmarkIcon/></div>
               <div className='flex justify-center items-center rounded-md bg-gray-50 bg-opacity-10 h-9 w-9 cursor-pointer'><FavoriteIcon/></div>
@@ -201,8 +200,11 @@ function App() {
                         <VKDatepicker
                           className="border-gray-200"
                           id="dob"
+                          placeholder='Select Date'
                           value={field.value}
                           format="DD-MM-YYYY"
+                          icon=<EditIcon/>
+                          iconPosition="end"
                           onChange={(event) => {
                             field.onChange(event.date);
                           }}
