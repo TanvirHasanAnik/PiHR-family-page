@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import './App.css';
-import { BookmarkIcon, BreadCrumbSeparator, FavoriteIcon, HelpIcon } from './icons';
+import { BookmarkIcon, BreadCrumbSeparator, DeleteIcon, EditIcon, FavoriteIcon, HelpIcon } from './icons';
 import NavBar from './navbar';
 
 const familyFormSchema = z.object({
@@ -67,14 +67,28 @@ const breadcrumbOptions = [
 function App() {
   const [familyList, setFamilyList] = useState<familyFormValues []>([]);
 
-  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema),mode: 'onChange'});
+  const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema),mode: 'onSubmit'});
   const {register, control, handleSubmit, formState: { errors }} = form;
 
   
   const onSubmit = function (data: familyFormValues){
-    console.log("form submitted",data);
     try{
       console.log(familyFormSchema.parse(data))
+      console.log("form submitted",data);
+      const newFamily = {
+        id: 1,
+        name: data.name,
+        relationship: data.relationship,
+        gender: data.gender,
+        nid: data.nid,
+        dob: data.dob,
+        profession: data.profession,
+        contact: data.contact,
+        isEmergencyContact: data.isEmergencyContact,
+      }
+      setFamilyList((prev) => [...prev, newFamily]);
+      form.reset();
+      console.log("family list", familyList);
     }catch (error){
       console.log("error",error)
     }
@@ -126,7 +140,7 @@ function App() {
                 <a href="" className='px-3 py-2 text-left rounded-md text-sm leading-5 font-semibold text-[rgb(52,64,84)]'>Bank Account</a>
             </div>
           </section>
-          <section className='w-full pb-5 pl-7'>
+          <section className='w-full pb-5 pl-7 flex flex-col gap-5'>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className='family-form-wrapper w-full flex flex-col gap-4 p-5 rounded-xl bg-gray-50'>
                 <div className='flex flex-col gap-1'>
@@ -216,7 +230,47 @@ function App() {
                 </div>
               </div>
             </form>
-            <div className='family-table-wrapper'>Table</div>
+            <div className='family-table-wrapper table-fixed w-full'>
+              <table className="bg-white overflow-hidden w-full">
+                <thead>
+                  <tr className="bg-[#f2f5ff] border-b border-gray-200">
+                    <th className="py-2.5 px-5 w-1/5 text-xs font-semibold text-gray-900 text-left">Name</th>
+                    <th className="py-2.5 px-5 w-1/5 text-xs font-semibold text-gray-900 text-left">Relationship</th>
+                    <th className="py-2.5 px-5 w-1/5 text-xs font-semibold text-gray-900 text-left">Contact</th>
+                    <th className="py-2.5 px-5 w-1/5 text-xs font-semibold text-gray-900 text-left">Emergency Contact</th>
+                    <th className="py-2.5 px-5 w-1/5 text-xs font-semibold text-gray-900 text-right"><span className='pr-4'>Action</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {familyList.map((family: familyFormValues)=>{
+                    return <>
+                    <tr key={family.id} className="border-b border-gray-200">
+                      <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-900 break-all">{family.name}</td>
+                      <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-500 break-all">{family.relationship.label}</td>
+                      <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-500 break-all">{family.contact}</td>
+                      <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-500 break-all">{family.isEmergencyContact ? "Yes" : "No"}</td>
+                      <td className="py-2.5 px-5 w-1/5">
+                      <div className="flex items-center w-full justify-end">
+                        <div 
+                        className='edit_icon_wrapper flex items-center justify-center h-8 w-8 cursor-pointer rounded-md hover:bg-blue-50'
+                        onClick={()=>{}}
+                        >
+                          <EditIcon/>
+                        </div>
+                        <div 
+                        className='delete_icon_wrapper  cursor-pointer rounded-md hover:bg-red-50'
+                        onClick={()=>{}}
+                        >
+                          <DeleteIcon/>
+                        </div>
+                      </div>
+                      </td>
+                    </tr>
+                    </>
+                  })}
+                </tbody>
+              </table> 
+            </div>
           </section>
         </div>
       </div>

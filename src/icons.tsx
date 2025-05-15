@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 
 function ExpandIcon(){
   return (
@@ -42,4 +42,17 @@ function FavoriteIcon() {
     )
 }
 
-export {ExpandIcon,SearchIcon, NotificationIcon,BreadCrumbSeparator,HelpIcon,BookmarkIcon,FavoriteIcon}
+function EditIcon() {
+    return(
+      <svg width="16" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="cursor-pointer transition-all duration-300 ease-in-out"><path d="M9.34153 3.62602L3.8682 9.41935C3.66153 9.63935 3.46153 10.0727 3.42153 10.3727L3.17486 12.5327C3.0882 13.3127 3.6482 13.846 4.42153 13.7127L6.5682 13.346C6.8682 13.2927 7.28819 13.0727 7.49486 12.846L12.9682 7.05268C13.9149 6.05268 14.3415 4.91268 12.8682 3.51935C11.4015 2.13935 10.2882 2.62602 9.34153 3.62602Z" stroke="#667085" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" className="group-hover:stroke-primary-500 transition-all duration-300 ease-in-out"></path><path d="M8.42969 4.59375C8.71635 6.43375 10.2097 7.84042 12.063 8.02708" stroke="#667085 " stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" className="group-hover:stroke-primary-500 transition-all duration-300 ease-in-out"></path></svg>
+    )
+}
+
+function DeleteIcon() {
+    return(
+      <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="cursor-pointer m-2"><path d="M14.1674 4H2.83398" stroke="#667085" stroke-width="1.2" stroke-linecap="round" className="group-hover:stroke-Error-500 transition-all duration-300 ease-in-out"></path><path d="M13.0564 5.66663L12.7498 10.266C12.6318 12.036 12.5728 12.9209 11.9961 13.4605C11.4195 14 10.5325 14 8.75866 14H8.24308C6.46921 14 5.58228 14 5.00561 13.4605C4.42893 12.9209 4.36994 12.036 4.25194 10.266L3.94531 5.66663" stroke="#667085" stroke-width="1.2" stroke-linecap="round" className="group-hover:stroke-Error-500 transition-all duration-300 ease-in-out"></path><path d="M4.83398 4C4.87124 4 4.88986 4 4.90675 3.99957C5.45571 3.98566 5.94 3.63661 6.1268 3.12021C6.13254 3.10433 6.13843 3.08666 6.15021 3.05132L6.21494 2.85714C6.27019 2.69139 6.29782 2.6085 6.33446 2.53813C6.48066 2.25738 6.75115 2.06242 7.06372 2.01251C7.14207 2 7.22943 2 7.40416 2H9.59714C9.77187 2 9.85923 2 9.93758 2.01251C10.2502 2.06242 10.5206 2.25738 10.6668 2.53813C10.7035 2.6085 10.7311 2.69138 10.7864 2.85714L10.8511 3.05132C10.8629 3.08661 10.8688 3.10434 10.8745 3.12021C11.0613 3.63661 11.5456 3.98566 12.0946 3.99957C12.1114 4 12.1301 4 12.1673 4" stroke="#667085" stroke-width="1.2" className="group-hover:stroke-Error-500 transition-all duration-300 ease-in-out"></path></svg>
+     )
+}
+
+export { BookmarkIcon, BreadCrumbSeparator, DeleteIcon, EditIcon, ExpandIcon, FavoriteIcon, HelpIcon, NotificationIcon, SearchIcon };
+
