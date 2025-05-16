@@ -5,7 +5,13 @@ import {
   VKCheckbox,
   VKDatepicker,
   VKInput,
-  VKSelect
+  VKSelect,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalTrigger,
 } from "@vivakits/react-components";
 import { useState,useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -63,6 +69,55 @@ const breadcrumbOptions = [
 			href: "#",
 		},
 	];
+
+  function DeleteModal({children}){
+    return (
+      <Modal>
+        <ModalTrigger>
+          {children}
+        </ModalTrigger>
+        <ModalContent className="w-[600px]">
+          <ModalHeader className="px-4">Modal Header</ModalHeader>
+          <ModalBody className="p-4">
+            <p className="text-gray-500">
+              Modal content.....
+            </p>
+          </ModalBody>
+          <ModalFooter>
+            <VKButton variant="outline" onClick={() => {}} className="px-3 py-1.5">Cancel</VKButton>
+            <VKButton className="px-3 py-1.5">
+              Save
+            </VKButton>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    )
+  }
+
+  function EditModal({children}){
+    return (
+      <Modal>
+        <ModalTrigger>
+          {children}
+        </ModalTrigger>
+        <ModalContent className="w-[600px]">
+          <ModalHeader className="px-4">Modal Header</ModalHeader>
+          <ModalBody className="p-4">
+            <p className="text-gray-500">
+              Modal content.....
+            </p>
+          </ModalBody>
+          <ModalFooter>
+            <VKButton variant="outline" onClick={() => {}} className="px-3 py-1.5">Cancel</VKButton>
+            <VKButton className="px-3 py-1.5">
+              Save
+            </VKButton>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    )
+  }
+  
 
 function App() {
   const [familyList, setFamilyList] = useState<familyFormValues []>([]);
@@ -147,7 +202,7 @@ function App() {
             </div>
           </section>
           <section className='w-full pb-5 pl-7 flex flex-col gap-5'>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
               <div className='family-form-wrapper w-full flex flex-col gap-4 p-5 rounded-xl bg-gray-50'>
                 <div className='flex flex-col gap-1'>
                   <div className='input_wrapper grid grid-cols-2 gap-4'>
@@ -239,12 +294,12 @@ function App() {
                   </div>
                 </div>
                 <div className='submit_button_wrapper'>
-                  <VKButton type='submit' size="md" rounded="md" className='px-10'>
+                  <VKButton onClick={handleSubmit(onSubmit)} size="md" rounded="md" className='px-10'>
                     Save info
                   </VKButton>
                 </div>
               </div>
-            </form>
+            </div>
             <div className='family-table-wrapper table-fixed w-full'>
               <table className="bg-white overflow-hidden w-full">
                 <thead>
@@ -266,18 +321,22 @@ function App() {
                       <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-500 break-all">{family.isEmergencyContact ? "Yes" : "No"}</td>
                       <td className="py-2.5 px-5 w-1/5">
                       <div className="flex items-center w-full justify-end">
-                        <div 
-                        className='edit_icon_wrapper flex items-center justify-center h-8 w-8 cursor-pointer rounded-md hover:bg-blue-50'
-                        onClick={()=>{}}
-                        >
-                          <EditIcon/>
-                        </div>
-                        <div 
-                        className='delete_icon_wrapper  cursor-pointer rounded-md hover:bg-red-50'
-                        onClick={()=>{handleDelete(family.id)}}
-                        >
-                          <DeleteIcon/>
-                        </div>
+                        <EditModal>
+                          <div 
+                          className='edit_icon_wrapper flex items-center justify-center h-8 w-8 cursor-pointer rounded-md hover:bg-blue-50'
+                          onClick={()=>{}}
+                          >
+                            <EditIcon/>
+                          </div>
+                        </EditModal>
+                        <DeleteModal>
+                          <div 
+                            className='delete_icon_wrapper  cursor-pointer rounded-md hover:bg-red-50'
+                            onClick={()=>{}}
+                            >
+                              <DeleteIcon/>
+                          </div>
+                        </DeleteModal>
                       </div>
                       </td>
                     </tr>
