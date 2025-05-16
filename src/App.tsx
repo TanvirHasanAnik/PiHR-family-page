@@ -40,7 +40,10 @@ const familyFormSchema = z.object({
   nid: z.string().max(50, "Nid should be less than 50 characters").optional(),
   dob: z.date().nullable().optional(),
   profession: z.string().max(50, "Nid should be less than 50 characters").optional(),
-  contact: z.string().min(4,"Should be between 4 and 13 digits").max(13,"Should be between 4 and 13 digits").nullable().optional(),
+  contact: z.string().optional().nullable().refine(
+    val => !val || (val.length >= 4 && val.length <= 13),
+    { message: "Should be between 4 and 13 digits" }
+  ),
   isEmergencyContact: z.boolean().optional(),
 })
 
@@ -203,6 +206,7 @@ function App() {
       return family.id !== id
     })
     setFamilyList(newFamily)
+    setOpenDelete(false)
   }
 
   function DeleteModal({children,handleDelete}){
