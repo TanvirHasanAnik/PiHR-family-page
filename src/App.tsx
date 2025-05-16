@@ -117,7 +117,7 @@ const breadcrumbOptions = [
           </ModalBody>
           <ModalFooter>
             <VKButton variant="light" size="md" rounded="md" className='px-8' onClick={() => {}}>Cancel</VKButton>
-            <VKButton variant="solid" size="md" rounded="md" className='px-10' onClick={()=>{handleSubmit((data) => handleEdit(data))}}>
+            <VKButton variant="solid" size="md" rounded="md" className='px-10' onClick={handleSubmit((data) => handleEdit(data))}>
               Save
             </VKButton>
           </ModalFooter>
