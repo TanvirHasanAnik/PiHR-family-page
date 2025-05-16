@@ -70,62 +70,6 @@ const breadcrumbOptions = [
 		},
 	];
 
-  function DeleteModal({children,handleDelete}){
-    return (
-      <Modal>
-        <ModalTrigger>
-          {children}
-        </ModalTrigger>
-        <ModalContent className="w-[450px]  rounded-md">
-          <ModalHeader className="px-4"><DeleteHeaderIcon/></ModalHeader>
-          <ModalBody className="p-4">
-            <p className="text-md font-semibold">
-              Are you sure you want to delte this item?
-            </p>
-          </ModalBody>
-          <ModalFooter className='flex justify-center gap-4'>
-            <VKButton onClick={() => {}} variant="light" size="md" rounded="md" className='px-10 w-1/2'>Cancel</VKButton>
-            <VKButton variant="solid" color="danger" size="md" rounded="md" className='px-10 w-1/2'
-              onClick={() => {
-                handleDelete()
-              }}
-            >
-              Delete
-            </VKButton>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    )
-  }
-
-  function EditModal({children,initialValues,handleEdit}){
-    const editForm = useForm<familyFormValues>({
-      resolver: zodResolver(familyFormSchema),
-      defaultValues: initialValues
-    });
-    
-    const { register, control, handleSubmit, formState: { errors } } = editForm;
-    return (
-      <Modal>
-        <ModalTrigger>
-          {children}
-        </ModalTrigger>
-        <ModalContent className="w-[450px]">
-          <ModalHeader className="px-4">Edit</ModalHeader>
-          <ModalBody className="p-4">
-            <FormInputs errors={errors} control={control} register={register}/>
-          </ModalBody>
-          <ModalFooter>
-            <VKButton variant="light" size="md" rounded="md" className='px-8' onClick={() => {}}>Cancel</VKButton>
-            <VKButton variant="solid" size="md" rounded="md" className='px-10' onClick={handleSubmit((data) => handleEdit(data))}>
-              Save
-            </VKButton>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    )
-  }
-
   function FormInputs({errors,control,register}){
     return(
       <div className='flex flex-col gap-1'>
@@ -225,6 +169,8 @@ const breadcrumbOptions = [
 function App() {
   const [familyList, setFamilyList] = useState<familyFormValues []>([]);
   const familyId = useRef(0);
+  const [openDelete,setOpenDelete] = useState(false)
+  const [openEdit,setOpenEdit] = useState(false)
 
   const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema)});
   const {register, control, handleSubmit, formState: { errors }} = form;
@@ -259,6 +205,34 @@ function App() {
     setFamilyList(newFamily)
   }
 
+  function DeleteModal({children,handleDelete}){
+    return (
+      <Modal open={openDelete}>
+        <ModalTrigger>
+          {children}
+        </ModalTrigger>
+        <ModalContent className="w-[450px]  rounded-md">
+          <ModalHeader className="px-4"><DeleteHeaderIcon/></ModalHeader>
+          <ModalBody className="p-4">
+            <p className="text-md font-semibold">
+              Are you sure you want to delte this item?
+            </p>
+          </ModalBody>
+          <ModalFooter className='flex justify-center gap-4'>
+            <VKButton onClick={() => {setOpenDelete(false)}} variant="light" size="md" rounded="md" className='px-10 w-1/2'>Cancel</VKButton>
+            <VKButton variant="solid" color="danger" size="md" rounded="md" className='px-10 w-1/2'
+              onClick={() => {
+                handleDelete()
+              }}
+            >
+              Delete
+            </VKButton>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    )
+  }
+
   function handleEdit(data: familyFormValues) {
     const newFamilyList = familyList.map((family) => {
       if(data.id === family.id){
@@ -267,8 +241,36 @@ function App() {
         return family
       }
     })
-
     setFamilyList(newFamilyList)
+    setOpenEdit(false)
+  }
+
+  function EditModal({children,initialValues,handleEdit}){
+    const editForm = useForm<familyFormValues>({
+      resolver: zodResolver(familyFormSchema),
+      defaultValues: initialValues
+    });
+    
+    const { register, control, handleSubmit, formState: { errors } } = editForm;
+    return (
+      <Modal open={openEdit}>
+        <ModalTrigger>
+          {children}
+        </ModalTrigger>
+        <ModalContent className="w-[450px]">
+          <ModalHeader className="px-4">Edit</ModalHeader>
+          <ModalBody className="p-4">
+            <FormInputs errors={errors} control={control} register={register}/>
+          </ModalBody>
+          <ModalFooter>
+            <VKButton variant="light" size="md" rounded="md" className='px-8' onClick={() => {setOpenEdit(false)}}>Cancel</VKButton>
+            <VKButton variant="solid" size="md" rounded="md" className='px-10' onClick={handleSubmit((data) => handleEdit(data))}>
+              Save
+            </VKButton>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    )
   }
   console.log("family list", familyList);
   
@@ -351,7 +353,7 @@ function App() {
                         <EditModal initialValues={family} handleEdit={handleEdit}>
                           <div 
                           className='edit_icon_wrapper flex items-center justify-center h-8 w-8 cursor-pointer rounded-md hover:bg-blue-50'
-                          onClick={()=>{}}
+                          onClick={()=>{setOpenEdit(true)}}
                           >
                             <EditIcon/>
                           </div>
@@ -359,7 +361,7 @@ function App() {
                         <DeleteModal handleDelete={() => handleDelete(family.id)}>
                           <div 
                             className='delete_icon_wrapper flex items-center justify-center h-8 w-8  cursor-pointer rounded-md hover:bg-red-50'
-                            onClick={()=>{}}
+                            onClick={()=>{setOpenDelete(true)}}
                             >
                               <DeleteIcon/>
                           </div>
