@@ -98,7 +98,13 @@ const breadcrumbOptions = [
     )
   }
 
-  function EditModal({children,errors,control,register}){
+  function EditModal({children,initialValues}){
+    const editForm = useForm<familyFormValues>({
+      resolver: zodResolver(familyFormSchema),
+      defaultValues: initialValues
+    });
+    
+    const { register, control, handleSubmit, formState: { errors } } = editForm;
     return (
       <Modal>
         <ModalTrigger>
@@ -111,7 +117,7 @@ const breadcrumbOptions = [
           </ModalBody>
           <ModalFooter>
             <VKButton variant="light" size="md" rounded="md" className='px-8' onClick={() => {}}>Cancel</VKButton>
-            <VKButton variant="solid" size="md" rounded="md" className='px-10'>
+            <VKButton variant="solid" size="md" rounded="md" className='px-10' onClick={()=>{handleSubmit}}>
               Save
             </VKButton>
           </ModalFooter>
@@ -330,7 +336,7 @@ function App() {
                       <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-500 break-all">{family.isEmergencyContact ? "Yes" : "No"}</td>
                       <td className="py-2.5 px-5 w-1/5">
                       <div className="flex items-center w-full justify-end">
-                        <EditModal errors={errors} control={control} register={register}>
+                        <EditModal initialValues={family}>
                           <div 
                           className='edit_icon_wrapper flex items-center justify-center h-8 w-8 cursor-pointer rounded-md hover:bg-blue-50'
                           onClick={()=>{}}
