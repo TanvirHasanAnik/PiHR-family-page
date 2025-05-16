@@ -16,7 +16,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Attendance</span>
                       <ExpandIcon/>
                     </p>
@@ -34,7 +34,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfsfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Leave</span>
                       <ExpandIcon/>
                     </p>
@@ -52,7 +52,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Salary</span>
                       <ExpandIcon/>
                     </p>
@@ -70,7 +70,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Employee</span>
                       <ExpandIcon/>
                     </p>
@@ -88,7 +88,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Tax</span>
                       <ExpandIcon/>
                     </p>
@@ -106,7 +106,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Provident Fund</span>
                       <ExpandIcon/>
                     </p>
@@ -124,7 +124,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>KPI</span>
                       <ExpandIcon/>
                     </p>
@@ -142,7 +142,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Resource Management</span>
                       <ExpandIcon/>
                     </p>
@@ -160,7 +160,7 @@ function NavBar() {
             <li className='hover:bg-hoverBG hover:rounded-[6px]'>
               <Dropdown>
                 <DropdownTrigger>
-                    <p className='flex p-[12px] font-medium text-xs font-medium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
+                    <p className='flex p-[12px] font-sfMedium text-xs font-sfMedium lg:!text-sm items-center gap-[4px] text-dropDownTextGray cursor-pointer'>
                       <span>Setting</span>
                       <ExpandIcon/>
                     </p>

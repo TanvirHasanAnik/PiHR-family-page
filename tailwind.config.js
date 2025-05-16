@@ -9,7 +9,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sfpro: ['SF Pro', 'sans-serif'],
+        sfRegular: ['SF Pro regular', 'sans-serif'],
+        sfMedium: ['SF Pro medium', 'sans-serif'],
+        sfSemibold: ['SF Pro semibold', 'sans-serif'],
       },
       colors: {
         dropDownTextGray: '#667085',

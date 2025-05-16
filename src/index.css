@@ -2,12 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
-  font-family: 'SF Pro';
+@font-face {
+  font-family: 'SF Pro regular';
   src: url('/src/assets/fonts/SF-Pro.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-} */
+}
+
+@font-face {
+  font-family: 'SF Pro medium';
+  src: url('/src/assets/fonts/SF-Pro-Text-Medium.otf') format('openType');
+}
+
+@font-face {
+  font-family: 'SF Pro semibold';
+  src: url('/src/assets/fonts/SF-Pro-Text-Semibold.otf') format('openType');
+}
 
 @layer base {
   :root {
