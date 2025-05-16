@@ -17,7 +17,7 @@ import { useState,useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import './App.css';
-import { BookmarkIcon, BreadCrumbSeparator, CalendarIcon, DeleteIcon, EditIcon, ExpandIcon, FavoriteIcon, HelpIcon, NoDataFoundImage } from './icons';
+import { BookmarkIcon, BreadCrumbSeparator, CalendarIcon, DeleteIcon, EditIcon, ExpandIcon, FavoriteIcon, HelpIcon, NoDataFoundImage,DeleteHeaderIcon } from './icons';
 import NavBar from './navbar';
 
 const familyFormSchema = z.object({
@@ -70,23 +70,27 @@ const breadcrumbOptions = [
 		},
 	];
 
-  function DeleteModal({children}: { children: React.ReactNode }){
+  function DeleteModal({children,handleDelete}){
     return (
       <Modal>
         <ModalTrigger>
           {children}
         </ModalTrigger>
-        <ModalContent className="w-[600px]">
-          <ModalHeader className="px-4">Modal Header</ModalHeader>
+        <ModalContent className="w-[450px]  rounded-md">
+          <ModalHeader className="px-4"><DeleteHeaderIcon/></ModalHeader>
           <ModalBody className="p-4">
-            <p className="text-gray-500">
-              Modal content.....
+            <p className="text-md font-semibold">
+              Are you sure you want to delte this item?
             </p>
           </ModalBody>
-          <ModalFooter>
-            <VKButton variant="outline" onClick={() => {}} className="px-3 py-1.5">Cancel</VKButton>
-            <VKButton className="px-3 py-1.5">
-              Save
+          <ModalFooter className='flex justify-center gap-4'>
+            <VKButton onClick={() => {}} variant="light" size="md" rounded="md" className='px-10 w-1/2'>Cancel</VKButton>
+            <VKButton variant="solid" color="danger" size="md" rounded="md" className='px-10 w-1/2'
+              onClick={() => {
+                handleDelete()
+              }}
+            >
+              Delete
             </VKButton>
           </ModalFooter>
         </ModalContent>
@@ -329,9 +333,9 @@ function App() {
                             <EditIcon/>
                           </div>
                         </EditModal>
-                        <DeleteModal>
+                        <DeleteModal handleDelete={() => handleDelete(family.id)}>
                           <div 
-                            className='delete_icon_wrapper  cursor-pointer rounded-md hover:bg-red-50'
+                            className='delete_icon_wrapper flex items-center justify-center h-8 w-8  cursor-pointer rounded-md hover:bg-red-50'
                             onClick={()=>{}}
                             >
                               <DeleteIcon/>
