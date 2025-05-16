@@ -7,7 +7,7 @@ import {
   VKInput,
   VKSelect
 } from "@vivakits/react-components";
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import './App.css';
@@ -66,6 +66,7 @@ const breadcrumbOptions = [
 
 function App() {
   const [familyList, setFamilyList] = useState<familyFormValues []>([]);
+  const familyId = useRef(0);
 
   const form = useForm<familyFormValues>({resolver: zodResolver(familyFormSchema)});
   const {register, control, handleSubmit, formState: { errors }} = form;
@@ -76,7 +77,7 @@ function App() {
       console.log(familyFormSchema.parse(data))
       console.log("form submitted",data);
       const newFamily = {
-        id: 1,
+        id: familyId.current += 1,
         name: data.name,
         relationship: data.relationship,
         gender: data.gender,
@@ -88,12 +89,18 @@ function App() {
       }
       setFamilyList((prev) => [...prev, newFamily]);
       form.reset();
-      console.log("family list", familyList);
     }catch (error){
       console.log("error",error)
     }
   }
-    console.log(errors);
+
+  function handleDelete(id: number | undefined){
+    const newFamily = familyList.filter((family)=>{
+      return family.id !== id
+    })
+    setFamilyList(newFamily)
+  }
+  console.log("family list", familyList);
   
   return (
     <div className='font-sfpro'>
@@ -267,7 +274,7 @@ function App() {
                         </div>
                         <div 
                         className='delete_icon_wrapper  cursor-pointer rounded-md hover:bg-red-50'
-                        onClick={()=>{}}
+                        onClick={()=>{handleDelete(family.id)}}
                         >
                           <DeleteIcon/>
                         </div>
