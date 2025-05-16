@@ -15,7 +15,8 @@ export default {
       },
       colors: {
         dropDownTextGray: '#667085',
-        hoverBG: '#f9fafb'
+        hoverBG: '#f9fafb',
+        formBackground: '#f8fafc'
       }
     },
   },

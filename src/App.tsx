@@ -324,7 +324,7 @@ function App() {
           </section>
           <section className='w-full pb-5 pl-7 flex flex-col gap-5'>
             <div>
-              <div className='family-form-wrapper w-full flex flex-col gap-4 p-5 rounded-xl bg-gray-50'>
+              <div className='family-form-wrapper w-full flex flex-col gap-4 p-5 rounded-xl bg-formBackground'>
                 <FormInputs errors={errors} control={control} register={register}/>
                 <div className='submit_button_wrapper'>
                   <VKButton onClick={handleSubmit(onSubmit)} size="md" rounded="md" className='px-10'>
