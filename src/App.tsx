@@ -70,7 +70,7 @@ const breadcrumbOptions = [
 		},
 	];
 
-  function DeleteModal({children}){
+  function DeleteModal({children}: { children: React.ReactNode }){
     return (
       <Modal>
         <ModalTrigger>
@@ -94,7 +94,7 @@ const breadcrumbOptions = [
     )
   }
 
-  function EditModal({children}){
+  function EditModal({children}: { children: React.ReactNode }){
     return (
       <Modal>
         <ModalTrigger>
