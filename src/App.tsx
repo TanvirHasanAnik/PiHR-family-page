@@ -98,7 +98,7 @@ const breadcrumbOptions = [
     )
   }
 
-  function EditModal({children,initialValues}){
+  function EditModal({children,initialValues,handleEdit}){
     const editForm = useForm<familyFormValues>({
       resolver: zodResolver(familyFormSchema),
       defaultValues: initialValues
@@ -117,7 +117,7 @@ const breadcrumbOptions = [
           </ModalBody>
           <ModalFooter>
             <VKButton variant="light" size="md" rounded="md" className='px-8' onClick={() => {}}>Cancel</VKButton>
-            <VKButton variant="solid" size="md" rounded="md" className='px-10' onClick={()=>{handleSubmit}}>
+            <VKButton variant="solid" size="md" rounded="md" className='px-10' onClick={()=>{handleSubmit((data) => handleEdit(data))}}>
               Save
             </VKButton>
           </ModalFooter>
@@ -258,6 +258,18 @@ function App() {
     })
     setFamilyList(newFamily)
   }
+
+  function handleEdit(data: familyFormValues) {
+    const newFamilyList = familyList.map((family) => {
+      if(data.id === family.id){
+        return data
+      }else{
+        return family
+      }
+    })
+
+    setFamilyList(newFamilyList)
+  }
   console.log("family list", familyList);
   
   return (
@@ -336,7 +348,7 @@ function App() {
                       <td className="py-2.5 px-5 w-1/5 text-sm font-medium text-gray-500 break-all">{family.isEmergencyContact ? "Yes" : "No"}</td>
                       <td className="py-2.5 px-5 w-1/5">
                       <div className="flex items-center w-full justify-end">
-                        <EditModal initialValues={family}>
+                        <EditModal initialValues={family} handleEdit={handleEdit}>
                           <div 
                           className='edit_icon_wrapper flex items-center justify-center h-8 w-8 cursor-pointer rounded-md hover:bg-blue-50'
                           onClick={()=>{}}
